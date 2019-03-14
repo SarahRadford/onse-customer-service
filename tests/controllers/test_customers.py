@@ -77,3 +77,31 @@ def test_create_customer_with_bad_context_type(web_client):
     response = web_client.post('/customers/', data='not json')
     assert response.status_code == 415
     assert response.get_json()['message'] == 'Request must be application/json'
+
+
+
+@patch('customer_service.model.commands.update_customer')
+def test_update_customer(update_customer, web_client, customer_repository):
+    request_body = dict(firstName='Kate', surname='Jones')
+
+    response = web_client.put('/customers/12345', json=request_body)
+
+    assert response.status_code == 201
+
+    update_customer.assert_called_with(
+        customer=mock.ANY,
+        customer_repository=customer_repository)
+
+    saved_account = update_customer.mock_calls[0][2]['customer']
+    assert saved_account.customer_id == 12345
+    assert saved_account.first_name == 'Kate'
+    assert saved_account.surname == 'Jones'
+
+    assert response.is_json
+
+    account = response.get_json()
+
+    assert account == dict(
+        firstName='Kate',
+        surname='Jones',
+        customer_id='12345')  # ID isNone because call is mocked
