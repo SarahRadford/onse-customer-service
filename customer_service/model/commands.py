@@ -6,5 +6,8 @@ def create_customer(customer, customer_repository):
     customer_repository.store(customer)
 
 
-def update_customer(customer, customer_repository):
+def update_customer(customer_id, first_name, surname, customer_repository):
+    customer = get_customer(customer_id, customer_repository)
+    customer.first_name = first_name
+    customer.surname = surname
     customer_repository.store(customer)

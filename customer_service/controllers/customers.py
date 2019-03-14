@@ -84,9 +84,10 @@ def update_customer(customer_id):
                         surname=body['surname'],
                         customer_id=customer_id)
 
-    commands.update_customer(
-        customer=customer,
-        customer_repository=customer_repository)
+    commands.update_customer(first_name=body['firstName'],
+                             surname=body['surname'],
+                             customer_id=customer_id,
+                             customer_repository=customer_repository)
 
     return jsonify(customer_id=str(customer.customer_id),
                    firstName=customer.first_name,

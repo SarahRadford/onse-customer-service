@@ -37,9 +37,9 @@ def test_update_customer(customer_repository):
     customer = Customer(first_name='Nicole', surname='Forsgren')
     customer_repository.store(customer)
 
-    customer.surname = 'Jones'
-
-    commands.update_customer(customer=customer,
+    commands.update_customer(customer_id=customer.customer_id,
+                             first_name='Nicole',
+                             surname='Jones',
                              customer_repository=customer_repository)
 
     stored_customer = customer_repository.fetch_by_id(customer.customer_id)

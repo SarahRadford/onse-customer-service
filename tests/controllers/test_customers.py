@@ -88,13 +88,10 @@ def test_update_customer(update_customer, web_client, customer_repository):
     assert response.status_code == 201
 
     update_customer.assert_called_with(
-        customer=mock.ANY,
+        customer_id=12345,
+        first_name='Kate',
+        surname='Jones',
         customer_repository=customer_repository)
-
-    saved_account = update_customer.mock_calls[0][2]['customer']
-    assert saved_account.customer_id == 12345
-    assert saved_account.first_name == 'Kate'
-    assert saved_account.surname == 'Jones'
 
     assert response.is_json
 
