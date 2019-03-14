@@ -79,7 +79,6 @@ def test_create_customer_with_bad_context_type(web_client):
     assert response.get_json()['message'] == 'Request must be application/json'
 
 
-
 @patch('customer_service.model.commands.update_customer')
 def test_update_customer(update_customer, web_client, customer_repository):
     request_body = dict(firstName='Kate', surname='Jones')

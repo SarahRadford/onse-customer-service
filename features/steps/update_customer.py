@@ -1,4 +1,5 @@
-from behave import when, then, given
+from behave import when
+
 
 @when('I update customer "{customer_id:d}" surname to "{name}"')
 def step_impl(context, customer_id, name):
@@ -9,5 +10,3 @@ def step_impl(context, customer_id, name):
 
     assert response.status_code == 201, response.status_code
     context.customer_id = response.get_json()['customer_id']
-
-
